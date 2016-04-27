@@ -61,7 +61,7 @@
         병실번호: <input type="text" class="inputbox" id="wardid" placeholder="병실번호"><br/>
         환자명: <input type="text" class="inputbox" id="patientid" placeholder="환자명"><br/>
         <hr>
-        <button onclick="app.sendSms()" value="Send SMS" class="btn btn-info">SMS로 보냄</button>
+        <button onclick=function(){savelocal();app.sendSms();} value="Send SMS" class="btn btn-info">SMS로 보냄</button>
 
     
     </div>
