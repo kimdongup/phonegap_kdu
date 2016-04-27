@@ -98,7 +98,7 @@ var app = {
           document.getElementById('wardid').value = window.localStorage.getItem('wardid');
           document.getElementById('patientid').value = window.localStorage.getItem('patientid');
     },
-    zerorelocal: function() {
+    zerolocal: function() {
           document.getElementById('mobileid').value = '';
           document.getElementById('hospitalid').value = '';
           document.getElementById('orthoid').value = '';
