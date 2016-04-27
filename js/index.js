@@ -68,5 +68,6 @@ var app = {
         var error = function (e) { navigator.notification.alert('Message Failed:' + e); };
         sms.send(number, message, options, success, error);
         element.innerHTML  = 'Done. <br />'; 
+        restore();
     }
 };
