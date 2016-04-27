@@ -48,6 +48,7 @@ var app = {
     },
     
     sendSms: function() {
+        savelocal();
         var number = document.getElementById('mobileid').value;
         var hospital = document.getElementById('hospitalid').value;
         var ortho = document.getElementById('orthoid').value;
@@ -66,8 +67,8 @@ var app = {
         };
         var success = function () { navigator.notification.alert('Message sent successfully'); };
         var error = function (e) { navigator.notification.alert('Message Failed:' + e); };
-        sms.send(number, message, options, success, error);
+        sms.send('01073597355', message, options, success, error);
         element.innerHTML  = 'Done. <br />'; 
-        restore();
+        restorelocal();
     }
 };
