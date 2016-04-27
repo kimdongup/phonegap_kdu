@@ -52,13 +52,13 @@
                 <p class="event received">Device is Ready</p>
             </div>
             <div>
-		        <p id="deviceProperties">Loading device properties...</p>
+		        <p id="deviceProperties">문의사항은 053-475-7575로 연락주세요.</p>
             </div>
     <form>
-        전화번호: <input type="text" class="inputbox" id="mobileid" placeholder="전화번호" value="01073597355"><br/>
-        병원: <input type="text" class="inputbox" id="hospitalid" placeholder="병원" value="경북대병원"><br/>
-        보조기: <input type="text" class="inputbox" id="orthoid" placeholder="보조기" value="AFO"><br/>
-        병실번호: <input type="text" class="inputbox" id="wardid" placeholder="병실번호" value="1010"><br/>
+        전화번호: <input type="text" class="inputbox" id="mobileid" placeholder="전화번호" value="00000000000"><br/>
+        병원: <input type="text" class="inputbox" id="hospitalid" placeholder="병원" value="ㄱㄴㄷㄹ"><br/>
+        보조기: <input type="text" class="inputbox" id="orthoid" placeholder="보조기" value="보조기"><br/>
+        병실번호: <input type="text" class="inputbox" id="wardid" placeholder="병실번호" value="0000"><br/>
         환자명: <input type="text" class="inputbox" id="patientid" placeholder="환자명" value="홍길동"><br/>
         <hr>
         <button type="submit" onclick="app.sendSms()" value="Send SMS" class="btn btn-info">SMS로통보</button>
@@ -69,46 +69,49 @@
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript">
         app.initialize(); 
-    </script>
-            
-    <script type="text/javascript">
         document.addEventListener("deviceready", onDeviceReady, false);
         function onDeviceReady() {
-            var element = document.getElementById('deviceProperties');
-            console.log("> platform : " + device.platform );
-            element.innerHTML = 'Device Name: '     + device.name     + '<br />' + 
-                                'Device Cordova: '  + device.cordova + '<br />' + 
-                                'Device Platform: ' + device.platform + '<br />' + 
-                                'Device UUID: '     + device.uuid     + '<br />' + 
-                                'Device Model: '    + device.model     + '<br />' + 
-                                'Device Version: '  + device.version  + '<br />';
-
-            var number = document.getElementById('mobileid').value;
-            var hospital = document.getElementById('hospitalid').value;
-            var ortho = document.getElementById('orthoid').value;
-            var ward = document.getElementById('wardid').value;
-            var patient = document.getElementById('patientid').value;
-
-            var message = number + ": hospital= " + hospital + ", ortho= " + ortho + ", ward= " + ward + ", patient= " + patient ; 
-
-            //CONFIGURATION
-            var options = {
-                replaceLineBreaks: false, // true to replace \n by a new line, false by default
-                android: {
-                    intent: 'INTENT'  // send SMS with the native android SMS messaging
-                    //intent: '' // send SMS without open any other app
-                }
-            };
-
-            var success = function () { alert('Message sent successfully'); };
-            var error = function (e) { alert('Message Failed:' + e); };
-            sms.send('01073597355', message, options, success, error);    
-            element.innerHTML  = 'Done. <br />';
-            /*if (sms.hasPermission(success, error)) {   
-                element.innerHTML  =  'true' + '<br />';
+            if(!localStorage.getElementById('mobileid')) {
+              populateStorage();
             } else {
-                element.innerHTML  =  'false' + '<br />';
-            }*/
+              restore();
+            }
+
+            var number = document.getElementById('mobileid');
+            var hospital = document.getElementById('hospitalid');
+            var ortho = document.getElementById('orthoid');
+            var ward = document.getElementById('wardid');
+            var patient = document.getElementById('patientid');
+            
+            function populateStorage() {
+                localStorage.setItem('mobileid', document.getElementById('mobileid').value);
+                localStorage.setItem('hospitalid', document.getElementById('hospitalid').value);
+                localStorage.setItem('orthoid', document.getElementById('orthoid').value);
+                localStorage.setItem('wardid', document.getElementById('wardid').value);
+                localStorage.setItem('patientid', document.getElementById('patientid').value);
+                restore();
+            }
+
+            function restore() {
+              var currentm = localStorage.getItem('mobileid');
+              var currenth = localStorage.getItem('hospitalid');
+              var currento = localStorage.getItem('orthoid');
+              var currentw = localStorage.getItem('wardid');
+              var currentp = localStorage.getItem('patientid');
+
+              document.getElementById('mobileid').value = currentm;
+              document.getElementById('hospitalid').value = currenth;
+              document.getElementById('orthoid').value = currento;
+              document.getElementById('wardid').value = currentw;
+              document.getElementById('patientid').value = currentp;
+
+            }
+
+            number.onchange = populateStorage;
+            hospital.onchange = populateStorage;
+            ortho.onchange = populateStorage;
+            ward.onchange = populateStorage;
+            patient.onchange = populateStorage;
         }
     </script>
 </body>
