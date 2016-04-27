@@ -71,19 +71,19 @@
         app.initialize(); 
         document.addEventListener("deviceready", onDeviceReady, false);
         function savelocal() {
-            localStorage.setItem('mobileid', document.getElementById('mobileid').value);
-            localStorage.setItem('hospitalid', document.getElementById('hospitalid').value);
-            localStorage.setItem('orthoid', document.getElementById('orthoid').value);
-            localStorage.setItem('wardid', document.getElementById('wardid').value);
-            localStorage.setItem('patientid', document.getElementById('patientid').value);
+            window.localStorage.setItem('mobileid', document.getElementById('mobileid').value);
+            window.localStorage.setItem('hospitalid', document.getElementById('hospitalid').value);
+            window.localStorage.setItem('orthoid', document.getElementById('orthoid').value);
+            window.localStorage.setItem('wardid', document.getElementById('wardid').value);
+            window.localStorage.setItem('patientid', document.getElementById('patientid').value);
         }
 
         function restorelocal() {
-          document.getElementById('mobileid').value = localStorage.getItem('mobileid');
-          document.getElementById('hospitalid').value = localStorage.getItem('hospitalid');
-          document.getElementById('orthoid').value = localStorage.getItem('orthoid');
-          document.getElementById('wardid').value = localStorage.getItem('wardid');
-          document.getElementById('patientid').value = localStorage.getItem('patientid');
+          document.getElementById('mobileid').value = window.localStorage.getItem('mobileid');
+          document.getElementById('hospitalid').value = window.localStorage.getItem('hospitalid');
+          document.getElementById('orthoid').value = window.localStorage.getItem('orthoid');
+          document.getElementById('wardid').value = window.localStorage.getItem('wardid');
+          document.getElementById('patientid').value = window.localStorage.getItem('patientid');
         }
 
         function onDeviceReady() {
