@@ -55,13 +55,13 @@
 		        <p id="deviceProperties">문의사항은 053-475-7575로 연락주세요.</p>
             </div>
     <form>
-        전화번호: <input type="text" class="inputbox" id="mobileid" placeholder="본인번호" value="00000000000"><br/>
-        병원: <input type="text" class="inputbox" id="hospitalid" placeholder="병원" value="ㄱㄴㄷㄹ"><br/>
-        보조기: <input type="text" class="inputbox" id="orthoid" placeholder="보조기" value="보조기"><br/>
-        병실번호: <input type="text" class="inputbox" id="wardid" placeholder="병실번호" value="0000"><br/>
-        환자명: <input type="text" class="inputbox" id="patientid" placeholder="환자명" value="홍길동"><br/>
+        전화번호: <input type="text" class="inputbox" id="mobileid" placeholder="본인번호"><br/>
+        병원: <input type="text" class="inputbox" id="hospitalid" placeholder="병원"><br/>
+        보조기: <input type="text" class="inputbox" id="orthoid" placeholder="보조기"><br/>
+        병실번호: <input type="text" class="inputbox" id="wardid" placeholder="병실번호"><br/>
+        환자명: <input type="text" class="inputbox" id="patientid" placeholder="환자명"><br/>
         <hr>
-        <button onclick="app.sendSms();restore();" value="Send SMS" class="btn btn-info">SMS로 보냄</button>
+        <button onclick="app.sendSms()" value="Send SMS" class="btn btn-info">SMS로 보냄</button>
 
     </form>
     </div>
