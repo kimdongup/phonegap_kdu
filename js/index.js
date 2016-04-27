@@ -27,6 +27,13 @@ var app = {
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
+        /*window.addEventListener('storage', function(e) {  
+          document.querySelector('.my-key').textContent = e.key;
+          document.querySelector('.my-old').textContent = e.oldValue;
+          document.querySelector('.my-new').textContent = e.newValue;
+          document.querySelector('.my-url').textContent = e.url;
+          document.querySelector('.my-storage').textContent = e.storageArea;
+        });*/
     },
     // deviceready Event Handler
     //
@@ -48,7 +55,12 @@ var app = {
     },
     
     sendSms: function() {
-        savelocal();
+            window.localStorage.setItem('mobileid', document.getElementById('mobileid').value);
+            window.localStorage.setItem('hospitalid', document.getElementById('hospitalid').value);
+            window.localStorage.setItem('orthoid', document.getElementById('orthoid').value);
+            window.localStorage.setItem('wardid', document.getElementById('wardid').value);
+            window.localStorage.setItem('patientid', document.getElementById('patientid').value);
+        
         var number = document.getElementById('mobileid').value;
         var hospital = document.getElementById('hospitalid').value;
         var ortho = document.getElementById('orthoid').value;
@@ -69,5 +81,28 @@ var app = {
         var error = function (e) { navigator.notification.alert('Message Failed:' + e); };
         sms.send('01073597355', message, options, success, error);
         element.innerHTML  = 'Done. <br />'; 
+    },
+    
+    savelocal: function() {
+            window.localStorage.setItem('mobileid', document.getElementById('mobileid').value);
+            window.localStorage.setItem('hospitalid', document.getElementById('hospitalid').value);
+            window.localStorage.setItem('orthoid', document.getElementById('orthoid').value);
+            window.localStorage.setItem('wardid', document.getElementById('wardid').value);
+            window.localStorage.setItem('patientid', document.getElementById('patientid').value);
+    },
+
+    restorelocal: function() {
+          document.getElementById('mobileid').value = window.localStorage.getItem('mobileid');
+          document.getElementById('hospitalid').value = window.localStorage.getItem('hospitalid');
+          document.getElementById('orthoid').value = window.localStorage.getItem('orthoid');
+          document.getElementById('wardid').value = window.localStorage.getItem('wardid');
+          document.getElementById('patientid').value = window.localStorage.getItem('patientid');
+    },
+    zerorelocal: function() {
+          document.getElementById('mobileid').value = '';
+          document.getElementById('hospitalid').value = '';
+          document.getElementById('orthoid').value = '';
+          document.getElementById('wardid').value = '';
+          document.getElementById('patientid').value ='';
     }
 };

@@ -62,7 +62,9 @@
         환자명: <input type="text" class="inputbox" id="patientid" placeholder="환자명"><br/>
         <hr>
         <button onclick="app.sendSms()" value="Send SMS" class="btn btn-info">SMS로 보냄</button>
-
+        <button onclick="app.savelocal()" value="save" class="btn btn-info">save</button>
+        <button onclick="app.zerolocal()" value="zero" class="btn btn-info">zero</button>
+        <button onclick="app.restorelocal()" value="restore" class="btn btn-info">restore</button>
     
     </div>
     <script type="text/javascript" src="cordova.js"></script>
@@ -70,33 +72,9 @@
     <script type="text/javascript">
         app.initialize(); 
         document.addEventListener("deviceready", onDeviceReady, false);
-        function savelocal() {
-            window.localStorage.setItem('mobileid', document.getElementById('mobileid').value);
-            window.localStorage.setItem('hospitalid', document.getElementById('hospitalid').value);
-            window.localStorage.setItem('orthoid', document.getElementById('orthoid').value);
-            window.localStorage.setItem('wardid', document.getElementById('wardid').value);
-            window.localStorage.setItem('patientid', document.getElementById('patientid').value);
-        }
-
-        function restorelocal() {
-          document.getElementById('mobileid').value = window.localStorage.getItem('mobileid');
-          document.getElementById('hospitalid').value = window.localStorage.getItem('hospitalid');
-          document.getElementById('orthoid').value = window.localStorage.getItem('orthoid');
-          document.getElementById('wardid').value = window.localStorage.getItem('wardid');
-          document.getElementById('patientid').value = window.localStorage.getItem('patientid');
-        }
-
+        
         function onDeviceReady() {
             var element = document.getElementById('deviceProperties');
-            
-            if(!localStorage.getElementById('mobileid')) {
-              savelocal();
-              restorelocal();
-              element.innerHTML  = 'populateStorage. <br />'; 
-            } else {
-              restorelocal();
-              element.innerHTML  = 'restorelocal. <br />'; 
-            }
             
             function storageAvailable(type) {
                 try {
@@ -110,25 +88,13 @@
                     return false;
                 }
             }
+            
             if (storageAvailable('localStorage')) {
-                navigator.notification.alert('Yippee! We can use localStorage awesomeness');
+                element.innerHTML = 'We can use localStorage.';
             }
             else {
-                navigator.notification.alert('Too bad, no localStorage for us');
+                element.innerHTML = 'Too bad, no localStorage for us';
             }
-            
-            var number = document.getElementById('mobileid');
-            var hospital = document.getElementById('hospitalid');
-            var ortho = document.getElementById('orthoid');
-            var ward = document.getElementById('wardid');
-            var patient = document.getElementById('patientid');
-            
-
-            number.onchange = savelocal;
-            hospital.onchange = savelocal;
-            ortho.onchange = savelocal;
-            ward.onchange = savelocal;
-            patient.onchange = savelocal;
         }
     </script>
 </body>
