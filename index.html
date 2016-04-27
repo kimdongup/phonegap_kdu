@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<!--
+    Copyright (c) 2012-2016 Adobe Systems Incorporated. All rights reserved.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+    <!-- Good default declaration:
+    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+        * Enable inline JS: add 'unsafe-inline' to default-src
+        * Enable eval(): add 'unsafe-eval' to default-src
+    * Create your own at http://cspisawesome.com
+    -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
+
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <title>Daeho</title>
+</head>
+
+<body>
+    
+
+    <div class="app">
+        
+            <div id="deviceready" class="blink">
+                <p class="event listening">Connecting to Device</p>
+                <p class="event received">Device is Ready</p>
+            </div>
+            <div>
+		        <p id="deviceProperties">Loading device properties...</p>
+            </div>
+    <form>
+        전화번호: <input type="text" class="inputbox" id="mobileid" placeholder="전화번호" value="01073597355"><br/>
+        병원: <input type="text" class="inputbox" id="hospitalid" placeholder="병원" value="경북대병원"><br/>
+        보조기: <input type="text" class="inputbox" id="orthoid" placeholder="보조기" value="AFO"><br/>
+        병실번호: <input type="text" class="inputbox" id="wardid" placeholder="병실번호" value="1010"><br/>
+        환자명: <input type="text" class="inputbox" id="patientid" placeholder="환자명" value="홍길동"><br/>
+        <hr>
+        <button type="submit" onclick="app.sendSms()" value="Send SMS" class="btn btn-info">주문전달</button>
+
+    </form>
+    </div>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript">
+        app.initialize(); 
+    </script>
+            
+    <script type="text/javascript">
+        document.addEventListener("deviceready", onDeviceReady, false);
+            
+        function onDeviceReady() {
+                var element = document.getElementById('deviceProperties');
+        		console.log("> platform : " + device.platform );
+                element.innerHTML = 'Device Name: '     + device.name     + '<br />' + 
+                                    'Device Cordova: '  + device.cordova + '<br />' + 
+                                    'Device Platform: ' + device.platform + '<br />' + 
+                                    'Device UUID: '     + device.uuid     + '<br />' + 
+                                    'Device Model: '    + device.model     + '<br />' + 
+                                    'Device Version: '  + device.version  + '<br />';
+        
+        
+        var number = document.getElementById('mobileid').value;
+        var hospital = document.getElementById('hospitalid').value;
+        var ortho = document.getElementById('orthoid').value;
+        var ward = document.getElementById('wardid').value;
+        var patient = document.getElementById('patientid').value;
+    
+        var message = number + ": hospital= " + hospital + ", ortho= " + ortho + ", ward= " + ward + ", patient= " + patient ; 
+
+        //CONFIGURATION
+        var options = {
+            replaceLineBreaks: false, // true to replace \n by a new line, false by default
+            android: {
+                intent: 'INTENT'  // send SMS with the native android SMS messaging
+                //intent: '' // send SMS without open any other app
+            }
+        };
+
+        var success = function () { alert('Message sent successfully'); };
+        var error = function (e) { alert('Message Failed:' + e); };
+            element.innerHTML  = 'here <br />';
+            sms.send(number, message, options, success, error);    
+        if (sms.hasPermission(success, error)) {   
+            element.innerHTML  =  'true' + '<br />';
+        } else {
+            element.innerHTML  =  'false' + '<br />';
+        }
+        }
+    </script>
+</body>
+
+</html>
