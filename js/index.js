@@ -54,10 +54,8 @@ var app = {
         var ward = document.getElementById('wardid').value;
         var patient = document.getElementById('patientid').value;
     
-        var message = "hospital= " + hospital + ", ortho= " + ortho + ", ward= " + ward + ", patient= " + patient ; 
+        var message = number + ", " + hospital + ", " + ortho + ", " + ward + ", " + patient ; 
         var element = document.getElementById('deviceProperties');
-        		element.innerHTML  = message + '<br />';
-
         //CONFIGURATION
         var options = {
             replaceLineBreaks: false, // true to replace \n by a new line, false by default
@@ -66,10 +64,10 @@ var app = {
                 //intent: '' // send SMS without open any other app
             }
         };
-
         var success = function () { navigator.notification.alert('Message sent successfully'); };
         var error = function (e) { navigator.notification.alert('Message Failed:' + e); };
         sms.send(number, message, options, success, error);
+        element.innerHTML  = 'Done. <br />'; 
     },
     
     checkSMSPermission: function() {

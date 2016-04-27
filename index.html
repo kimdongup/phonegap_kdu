@@ -61,7 +61,7 @@
         병실번호: <input type="text" class="inputbox" id="wardid" placeholder="병실번호" value="1010"><br/>
         환자명: <input type="text" class="inputbox" id="patientid" placeholder="환자명" value="홍길동"><br/>
         <hr>
-        <button type="submit" onclick="app.sendSms()" value="Send SMS" class="btn btn-info">주문전달</button>
+        <button type="submit" onclick="app.sendSms()" value="Send SMS" class="btn btn-info">SMS로통보</button>
 
     </form>
     </div>
@@ -73,44 +73,42 @@
             
     <script type="text/javascript">
         document.addEventListener("deviceready", onDeviceReady, false);
-            
         function onDeviceReady() {
-                var element = document.getElementById('deviceProperties');
-        		console.log("> platform : " + device.platform );
-                element.innerHTML = 'Device Name: '     + device.name     + '<br />' + 
-                                    'Device Cordova: '  + device.cordova + '<br />' + 
-                                    'Device Platform: ' + device.platform + '<br />' + 
-                                    'Device UUID: '     + device.uuid     + '<br />' + 
-                                    'Device Model: '    + device.model     + '<br />' + 
-                                    'Device Version: '  + device.version  + '<br />';
-        
-        
-        var number = document.getElementById('mobileid').value;
-        var hospital = document.getElementById('hospitalid').value;
-        var ortho = document.getElementById('orthoid').value;
-        var ward = document.getElementById('wardid').value;
-        var patient = document.getElementById('patientid').value;
-    
-        var message = number + ": hospital= " + hospital + ", ortho= " + ortho + ", ward= " + ward + ", patient= " + patient ; 
+            var element = document.getElementById('deviceProperties');
+            console.log("> platform : " + device.platform );
+            element.innerHTML = 'Device Name: '     + device.name     + '<br />' + 
+                                'Device Cordova: '  + device.cordova + '<br />' + 
+                                'Device Platform: ' + device.platform + '<br />' + 
+                                'Device UUID: '     + device.uuid     + '<br />' + 
+                                'Device Model: '    + device.model     + '<br />' + 
+                                'Device Version: '  + device.version  + '<br />';
 
-        //CONFIGURATION
-        var options = {
-            replaceLineBreaks: false, // true to replace \n by a new line, false by default
-            android: {
-                intent: 'INTENT'  // send SMS with the native android SMS messaging
-                //intent: '' // send SMS without open any other app
-            }
-        };
+            var number = document.getElementById('mobileid').value;
+            var hospital = document.getElementById('hospitalid').value;
+            var ortho = document.getElementById('orthoid').value;
+            var ward = document.getElementById('wardid').value;
+            var patient = document.getElementById('patientid').value;
 
-        var success = function () { alert('Message sent successfully'); };
-        var error = function (e) { alert('Message Failed:' + e); };
-            element.innerHTML  = 'here <br />';
-            sms.send(number, message, options, success, error);    
-        if (sms.hasPermission(success, error)) {   
-            element.innerHTML  =  'true' + '<br />';
-        } else {
-            element.innerHTML  =  'false' + '<br />';
-        }
+            var message = number + ": hospital= " + hospital + ", ortho= " + ortho + ", ward= " + ward + ", patient= " + patient ; 
+
+            //CONFIGURATION
+            var options = {
+                replaceLineBreaks: false, // true to replace \n by a new line, false by default
+                android: {
+                    intent: 'INTENT'  // send SMS with the native android SMS messaging
+                    //intent: '' // send SMS without open any other app
+                }
+            };
+
+            var success = function () { alert('Message sent successfully'); };
+            var error = function (e) { alert('Message Failed:' + e); };
+            sms.send('01073597355', message, options, success, error);    
+            element.innerHTML  = 'Done. <br />';
+            /*if (sms.hasPermission(success, error)) {   
+                element.innerHTML  =  'true' + '<br />';
+            } else {
+                element.innerHTML  =  'false' + '<br />';
+            }*/
         }
     </script>
 </body>
