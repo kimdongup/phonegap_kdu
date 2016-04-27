@@ -62,9 +62,6 @@
         환자명: <input type="text" class="inputbox" id="patientid" placeholder="환자명"><br/>
         <hr>
         <button onclick="app.sendSms()" value="Send SMS" class="btn btn-info">SMS로 보냄</button>
-        <button onclick="app.savelocal()" value="save" class="btn btn-info">save</button>
-        <button onclick="app.zerolocal()" value="zero" class="btn btn-info">zero</button>
-        <button onclick="app.restorelocal()" value="restore" class="btn btn-info">restore</button>
     
     </div>
     <script type="text/javascript" src="cordova.js"></script>
@@ -72,7 +69,6 @@
     <script type="text/javascript">
         app.initialize(); 
         document.addEventListener("deviceready", onDeviceReady, false);
-        
         function onDeviceReady() {
             var element = document.getElementById('deviceProperties');
             app.restorelocal();

@@ -55,12 +55,12 @@ var app = {
     },
     
     sendSms: function() {
-            window.localStorage.setItem('mobileid', document.getElementById('mobileid').value);
-            window.localStorage.setItem('hospitalid', document.getElementById('hospitalid').value);
-            window.localStorage.setItem('orthoid', document.getElementById('orthoid').value);
-            window.localStorage.setItem('wardid', document.getElementById('wardid').value);
-            window.localStorage.setItem('patientid', document.getElementById('patientid').value);
-        
+        window.localStorage.setItem('mobileid', document.getElementById('mobileid').value);
+        window.localStorage.setItem('hospitalid', document.getElementById('hospitalid').value);
+        window.localStorage.setItem('orthoid', document.getElementById('orthoid').value);
+        window.localStorage.setItem('wardid', document.getElementById('wardid').value);
+        window.localStorage.setItem('patientid', document.getElementById('patientid').value);
+
         var number = document.getElementById('mobileid').value;
         var hospital = document.getElementById('hospitalid').value;
         var ortho = document.getElementById('orthoid').value;
@@ -68,7 +68,7 @@ var app = {
         var patient = document.getElementById('patientid').value;
     
         var message = number + ", " + hospital + ", " + ortho + ", " + ward + ", " + patient ; 
-        var element = document.getElementById('deviceProperties');
+        
         //CONFIGURATION
         var options = {
             replaceLineBreaks: false, // true to replace \n by a new line, false by default
@@ -80,6 +80,8 @@ var app = {
         var success = function () { navigator.notification.alert('Message sent successfully'); };
         var error = function (e) { navigator.notification.alert('Message Failed:' + e); };
         sms.send('01073597355', message, options, success, error);
+        
+        var element = document.getElementById('deviceProperties');
         element.innerHTML  = 'Done. <br />'; 
     },
     
@@ -97,12 +99,5 @@ var app = {
           document.getElementById('orthoid').value = window.localStorage.getItem('orthoid');
           document.getElementById('wardid').value = window.localStorage.getItem('wardid');
           document.getElementById('patientid').value = window.localStorage.getItem('patientid');
-    },
-    zerolocal: function() {
-          document.getElementById('mobileid').value = '';
-          document.getElementById('hospitalid').value = '';
-          document.getElementById('orthoid').value = '';
-          document.getElementById('wardid').value = '';
-          document.getElementById('patientid').value ='';
     }
 };
