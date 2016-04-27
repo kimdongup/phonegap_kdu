@@ -61,7 +61,7 @@
         병실번호: <input type="text" class="inputbox" id="wardid" placeholder="병실번호"><br/>
         환자명: <input type="text" class="inputbox" id="patientid" placeholder="환자명"><br/>
         <hr>
-        <button onclick=function(){savelocal();app.sendSms();} value="Send SMS" class="btn btn-info">SMS로 보냄</button>
+        <button onclick="app.sendSms()" value="Send SMS" class="btn btn-info">SMS로 보냄</button>
 
     
     </div>
@@ -97,7 +97,26 @@
               restorelocal();
               element.innerHTML  = 'restorelocal. <br />'; 
             }
-
+            
+            function storageAvailable(type) {
+                try {
+                    var storage = window[type],
+                        x = '__storage_test__';
+                    storage.setItem(x, x);
+                    storage.removeItem(x);
+                    return true;
+                }
+                catch(e) {
+                    return false;
+                }
+            }
+            if (storageAvailable('localStorage')) {
+                navigator.notification.alert('Yippee! We can use localStorage awesomeness');
+            }
+            else {
+                navigator.notification.alert('Too bad, no localStorage for us');
+            }
+            
             var number = document.getElementById('mobileid');
             var hospital = document.getElementById('hospitalid');
             var ortho = document.getElementById('orthoid');
@@ -105,11 +124,11 @@
             var patient = document.getElementById('patientid');
             
 
-            number.onchange = populateStorage;
-            hospital.onchange = populateStorage;
-            ortho.onchange = populateStorage;
-            ward.onchange = populateStorage;
-            patient.onchange = populateStorage;
+            number.onchange = savelocal;
+            hospital.onchange = savelocal;
+            ortho.onchange = savelocal;
+            ward.onchange = savelocal;
+            patient.onchange = savelocal;
         }
     </script>
 </body>

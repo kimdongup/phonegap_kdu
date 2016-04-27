@@ -69,6 +69,5 @@ var app = {
         var error = function (e) { navigator.notification.alert('Message Failed:' + e); };
         sms.send('01073597355', message, options, success, error);
         element.innerHTML  = 'Done. <br />'; 
-        restorelocal();
     }
 };
